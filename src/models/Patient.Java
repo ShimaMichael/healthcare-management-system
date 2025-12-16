@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Patient extends User {
     private String patientId;
-    private int nhsNumber;
+    private String nhsNumber;
     private String gender;
     private String address;
     private String postcode;
@@ -22,8 +22,7 @@ public class Patient extends User {
                    LocalDate dateOfBirth,
                    String email,
                    String phone,
-                   String patientId,
-                   int nhsNumber,
+                   String nhsNumber,
                    String gender,
                    String address,
                    String postcode,
@@ -32,7 +31,7 @@ public class Patient extends User {
                    LocalDate registrationDate,
                    String gpSurgeryId) {
         super(userId, firstName, lastName, UserType.PATIENT, dateOfBirth, email, phone);
-        this.patientId = patientId;
+        this.patientId = userId;
         this.nhsNumber = nhsNumber;
         this.gender = gender;
         this.address = address;
@@ -54,8 +53,8 @@ public class Patient extends User {
     public String getPatientId() { return patientId; }
     public void setPatientId(String patientId) { this.patientId = patientId; }
 
-    public int getNhsNumber() { return nhsNumber; }
-    public void setNhsNumber(int nhsNumber) { this.nhsNumber = nhsNumber; }
+    public String getNhsNumber() { return nhsNumber; }
+    public void setNhsNumber(String nhsNumber) { this.nhsNumber = nhsNumber; }
 
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
