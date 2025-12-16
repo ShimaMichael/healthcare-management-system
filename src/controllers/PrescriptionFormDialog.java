@@ -1,8 +1,13 @@
+package controllers;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import models.Medication;
+import models.Prescription;
 
 public class PrescriptionFormDialog extends JDialog {
 

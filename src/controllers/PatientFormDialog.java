@@ -1,6 +1,10 @@
+package controllers;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
+
+import models.Patient;
 
 public class PatientFormDialog extends JDialog {
 

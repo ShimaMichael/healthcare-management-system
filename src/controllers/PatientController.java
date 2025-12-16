@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.PatientPanel;
+import models.Patient;
+
 public class PatientController {
 
     private final PatientPanel view;

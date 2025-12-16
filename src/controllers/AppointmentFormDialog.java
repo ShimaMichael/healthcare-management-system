@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import models.Appointment;
+
 public class AppointmentFormDialog extends JDialog {
 
     private JTextField txtAppointmentId;

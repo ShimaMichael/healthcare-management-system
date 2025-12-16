@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Clinician;
 
 import javax.swing.*;
 import java.time.LocalDate;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.ClinicianPanel;
-import
 
 public class ClinicianController {
 

@@ -1,10 +1,13 @@
 package controllers;
+
 import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import gui.ReferralPanel;
+import models.Referral;
+import models.ReferralManager;
 
 public class ReferralController {
 

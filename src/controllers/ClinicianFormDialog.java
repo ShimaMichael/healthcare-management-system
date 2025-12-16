@@ -1,3 +1,7 @@
+package controllers;
+
+import models.Clinician;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;

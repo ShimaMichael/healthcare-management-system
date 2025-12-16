@@ -1,3 +1,7 @@
+package controllers;
+import gui.PrescriptionPanel;
+import models.Prescription;
+
 import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

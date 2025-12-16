@@ -1,6 +1,7 @@
 package controllers;
 
 import gui.AppointmentPanel;
+import models.Appointment;
 
 import javax.swing.*;
 import java.time.LocalDate;
