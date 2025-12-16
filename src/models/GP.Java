@@ -1,3 +1,4 @@
+package models;
 public class GP extends Clinician {
     public GP() { }
 

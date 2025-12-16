@@ -1,3 +1,4 @@
+package models;
 public class Medication {
     private String medicationId;
     private String name;

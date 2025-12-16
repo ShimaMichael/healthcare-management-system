@@ -1,3 +1,5 @@
+package models;
+
 import java.time.LocalDate;
 
 public class User {
@@ -62,9 +64,3 @@ public class User {
     }
 }
 
-
-public enum UserType {
-    PATIENT,
-    CLINICIAN,
-    ADMIN
-}

@@ -1,3 +1,5 @@
+package models;
+
 import java.time.LocalDate;
 
 public class Patient extends User {
@@ -10,6 +12,7 @@ public class Patient extends User {
     private String emergencyContactPhone;
     private LocalDate registrationDate;
     private String gpSurgeryId;
+    private PatientRecord patientRecord;
 
     public Patient() { }
 
@@ -38,6 +41,14 @@ public class Patient extends User {
         this.emergencyContactPhone = emergencyContactPhone;
         this.registrationDate = registrationDate;
         this.gpSurgeryId = gpSurgeryId;
+    }
+
+    public PatientRecord getPatientRecord() {
+        return patientRecord;
+    }
+
+    public void setPatientRecord(PatientRecord patientRecord) {
+        this.patientRecord = patientRecord;
     }
 
     public String getPatientId() { return patientId; }
