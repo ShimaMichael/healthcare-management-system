@@ -1,3 +1,5 @@
+package controllers;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.function.BiFunction;

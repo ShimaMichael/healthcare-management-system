@@ -1,3 +1,4 @@
+package gui;
 import javax.swing.*;
 
 public class PrescriptionPanel extends AbstractListPanel {

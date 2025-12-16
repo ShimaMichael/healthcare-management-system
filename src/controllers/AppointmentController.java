@@ -1,3 +1,7 @@
+package controllers;
+
+import gui.AppointmentPanel;
+
 import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
