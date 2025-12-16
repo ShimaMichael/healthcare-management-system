@@ -9,14 +9,13 @@ public class Clinician extends User {
     private String workplaceType;
     private String employmentStatus;
     private LocalDate startDate;
-    private int gmcNumber;
+    private String gmcNumber;
 
     public Clinician() { }
 
     public Clinician(String userId,
                      String firstName,
                      String lastName,
-                     LocalDate dateOfBirth,
                      String email,
                      String phone,
                      String clinicianId,
@@ -26,8 +25,8 @@ public class Clinician extends User {
                      String workplaceType,
                      String employmentStatus,
                      LocalDate startDate,
-                     int gmcNumber) {
-        super(userId, firstName, lastName, UserType.CLINICIAN, dateOfBirth, email, phone);
+                     String gmcNumber) {
+        super(userId, firstName, lastName, UserType.CLINICIAN, LocalDate.MIN, email, phone);
         this.clinicianId = clinicianId;
         this.title = title;
         this.speciality = speciality;
@@ -59,6 +58,6 @@ public class Clinician extends User {
     public LocalDate getStartDate() { return startDate; }
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
 
-    public int getGmcNumber() { return gmcNumber; }
-    public void setGmcNumber(int gmcNumber) { this.gmcNumber = gmcNumber; }
+    public String getGmcNumber() { return gmcNumber; }
+    public void setGmcNumber(String gmcNumber) { this.gmcNumber = gmcNumber; }
 }
