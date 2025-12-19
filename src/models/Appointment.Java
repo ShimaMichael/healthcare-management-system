@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class Appointment {
     private String appointmentId;
-    private Patient patient;
-    private Clinician clinician;
-    private Facility facility;
-    private LocalDateTime startDateTime;
+    private String patientId;
+    private String clinicianId;
+    private String facilityId;
+    private LocalDate appointmentDate;
     private int durationMinutes;
     private String appointmentType;
     private String status;
@@ -19,10 +19,10 @@ public class Appointment {
     public Appointment() { }
 
     public Appointment(String appointmentId,
-                       Patient patient,
-                       Clinician clinician,
-                       Facility facility,
-                       LocalDateTime startDateTime,
+                       String patientId,
+                       String clinicianId,
+                       String facilityId,
+                       LocalDate appointmentDate,
                        int durationMinutes,
                        String appointmentType,
                        String status,
@@ -31,10 +31,10 @@ public class Appointment {
                        LocalDate createdDate,
                        LocalDate lastModified) {
         this.appointmentId = appointmentId;
-        this.patient = patient;
-        this.clinician = clinician;
-        this.facility = facility;
-        this.startDateTime = startDateTime;
+        this.patientId = patientId;
+        this.clinicianId = clinicianId;
+        this.facilityId = facilityId;
+        this.appointmentDate = appointmentDate;
         this.durationMinutes = durationMinutes;
         this.appointmentType = appointmentType;
         this.status = status;
@@ -47,18 +47,18 @@ public class Appointment {
     public String getAppointmentId() { return appointmentId; }
     public void setAppointmentId(String appointmentId) { this.appointmentId = appointmentId; }
 
-    public Patient getPatient() { return patient; }
-    public void setPatient(Patient patient) { this.patient = patient; }
+    public String getPatientId() { return patientId; }
+    public void setPatientId(String patientId) { this.patientId = patientId; }
 
-    public Clinician getClinician() { return clinician; }
-    public void setClinician(Clinician clinician) { this.clinician = clinician; }
+    public String getClinicianId() { return clinicianId; }
+    public void setClinicianId(String clinicianId) { this.clinicianId = clinicianId; }
 
-    public Facility getFacility() { return facility; }
-    public void setFacility(Facility facility) { this.facility = facility; }
+    public String getFacilityId() { return facilityId; }
+    public void setFacilityId(String facilityId) { this.facilityId = facilityId; }
 
-    public LocalDateTime getStartDateTime() { return startDateTime; }
-    public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
-
+    public LocalDate getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(LocalDate appointmentDate) { this.appointmentDate = appointmentDate; }
+    
     public int getDurationMinutes() { return durationMinutes; }
     public void setDurationMinutes(int durationMinutes) { this.durationMinutes = durationMinutes; }
 

@@ -16,7 +16,6 @@ public class AdminStaff extends User {
     public AdminStaff(String userId,
                       String firstName,
                       String lastName,
-                      LocalDate dateOfBirth,
                       String email,
                       String phone,
                       String staffId,
@@ -27,7 +26,7 @@ public class AdminStaff extends User {
                       LocalDate startDate,
                       String lineManager,
                       String accessLevel) {
-        super(userId, firstName, lastName, UserType.ADMIN, dateOfBirth, email, phone);
+        super(userId, firstName, lastName, UserType.ADMIN, LocalDate.MIN , email, phone);
         this.staffId = staffId;
         this.role = role;
         this.department = department;
