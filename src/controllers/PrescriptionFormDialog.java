@@ -1,5 +1,3 @@
-package controllers;
-
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
@@ -81,24 +79,24 @@ public class PrescriptionFormDialog extends JDialog {
 
     private void populateFromExisting() {
         txtPrescriptionId.setText(existing.getPrescriptionId());
-        txtPatientId.setText(existing.getPatient() != null ? existing.getPatient().getPatientId() : "");
-        txtPrescriberId.setText(existing.getPrescriber() != null ? existing.getPrescriber().getClinicianId() : "");
+        txtPatientId.setText(existing.getPatientId() != null ? existing.getPatientId() : "");
+        txtPrescriberId.setText(existing.getClinicianId() != null ? existing.getClinicianId() : "");
         txtDate.setText(existing.getPrescriptionDate() != null ? existing.getPrescriptionDate().toString() : "");
         txtPharmacy.setText(existing.getPharmacyName());
         txtInstructions.setText(existing.getInstructions());
 
-        StringBuilder sb = new StringBuilder();
-        if (existing.getMedications() != null) {
-            for (Medication m : existing.getMedications()) {
-                sb.append(m.getName())
-                  .append("|").append(m.getForm())
-                  .append("|").append(m.getStrength())
-                  .append(System.lineSeparator());
-            }
-        }
-        txtMedications.setText(sb.toString());
+        // StringBuilder sb = new StringBuilder();
+        // if (existing.getMedicationName() != null) {
+        //     for (Medication m : existing.getMedicationName()) {
+        //         sb.append(m.getName())
+        //           .append("|").append(m.getForm())
+        //           .append("|").append(m.getStrength())
+        //           .append(System.lineSeparator());
+        //     }
+        // }
+        txtMedications.setText(existing.getMedicationName() != null ? existing.getMedicationName().toString() : "");
     }
-
+    
     public boolean isConfirmed() {
         return confirmed;
     }
@@ -110,31 +108,31 @@ public class PrescriptionFormDialog extends JDialog {
         LocalDate date = LocalDate.parse(txtDate.getText().trim());
         String pharmacy = txtPharmacy.getText().trim();
         String instructions = txtInstructions.getText().trim();
-
-        List<Medication> meds = new ArrayList<>();
-        for (String line : txtMedications.getText().split("\\R")) {
-            line = line.trim();
-            if (line.isEmpty()) continue;
-            String[] parts = line.split("\\|");
-            String name = parts.length > 0 ? parts[0].trim() : "";
-            String form = parts.length > 1 ? parts[1].trim() : "";
-            String strength = parts.length > 2 ? parts[2].trim() : "";
-            meds.add(new Medication(null, name, form, strength));
-        }
+        String meds = txtMedications.getText().trim();
+        // List<Medication> meds = new ArrayList<>();
+        // for (String line : txtMedications.getText().split("\\R")) {
+        //     line = line.trim();
+        //     if (line.isEmpty()) continue;
+        //     String[] parts = line.split("\\|");
+        //     String name = parts.length > 0 ? parts[0].trim() : "";
+        //     String form = parts.length > 1 ? parts[1].trim() : "";
+        //     String strength = parts.length > 2 ? parts[2].trim() : "";
+        //     meds.add(new Medication(null, name, form, strength));
+        // }
 
         Prescription p = new Prescription();
         p.setPrescriptionId(id);
         p.setPrescriptionDate(date);
         p.setPharmacyName(pharmacy);
         p.setInstructions(instructions);
-        p.setMedications(meds);
+        p.setMedicationName(meds);
         p.setIssueDate(date);
         p.setCollectionDate(null);
 
         // Patient/Clinician to be resolved from IDs by higher-level service if needed
-        p.setPatient(null);
-        p.setPrescriber(null);
-        p.setAppointment(null);
+        p.setPatientId(null);
+        p.setClinicianId(null);
+        p.setAppointmentId(null);
 
         return p;
     }

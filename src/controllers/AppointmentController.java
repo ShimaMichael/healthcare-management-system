@@ -26,16 +26,17 @@ public class AppointmentController {
                 columns,
                 appointments,
                 (appointment, col) -> {
-                    switch (col) {
-                        case 0: return appointment.getAppointmentId();
-                        case 1: return appointment.getPatient() != null ? appointment.getPatient().getFullName() : "";
-                        case 2: return appointment.getClinician() != null ? appointment.getClinician().getFullName() : "";
-                        case 3: return appointment.getFacility() != null ? appointment.getFacility().getName() : "";
-                        case 4: return appointment.getStartDateTime();
-                        case 5: return appointment.getDurationMinutes();
-                        case 6: return appointment.getStatus();
-                        default: return "";
-                    }
+                    return "";
+                    //switch (col) {
+                    //    case 0: return appointment.getAppointmentId();
+                    //    case 1: return appointment.getPatient() != null ? appointment.getPatient().getFullName() : "";
+                    //    case 2: return appointment.getClinician() != null ? appointment.getClinician().getFullName() : "";
+                    //    case 3: return appointment.getFacility() != null ? appointment.getFacility().getName() : "";
+                    //    case 4: return appointment.getStartDateTime();
+                    //    case 5: return appointment.getDurationMinutes();
+                    //    case 6: return appointment.getStatus();
+                    //    default: return "";
+                    //}
                 },
                 a -> {}
         );

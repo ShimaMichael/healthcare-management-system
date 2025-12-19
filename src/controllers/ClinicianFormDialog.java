@@ -142,13 +142,12 @@ public class ClinicianFormDialog extends JDialog {
         String workplaceType = txtWorkplaceType.getText().trim();
         String employmentStatus = txtEmploymentStatus.getText().trim();
         LocalDate startDate = LocalDate.parse(txtStartDate.getText().trim());
-        int gmcNumber = Integer.parseInt(txtGmcNumber.getText().trim());
+        String gmcNumber = txtGmcNumber.getText().trim();
 
         return new Clinician(
                 userId,
                 firstName,
                 lastName,
-                dob,
                 email,
                 phone,
                 clinicianId,

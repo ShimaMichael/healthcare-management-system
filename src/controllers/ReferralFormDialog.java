@@ -98,11 +98,11 @@ public class ReferralFormDialog extends JDialog {
 
     private void populateFromExisting() {
         txtReferralId.setText(existing.getReferralId());
-        txtPatientId.setText(existing.getPatient() != null ? existing.getPatient().getPatientId() : "");
-        txtRefClinicianId.setText(existing.getReferringClinician() != null ? existing.getReferringClinician().getClinicianId() : "");
-        txtReferredClinicianId.setText(existing.getReferredClinician() != null ? existing.getReferredClinician().getClinicianId() : "");
-        txtRefFacilityId.setText(existing.getReferringFacility() != null ? existing.getReferringFacility().getFacilityId() : "");
-        txtReferredFacilityId.setText(existing.getReferredFacility() != null ? existing.getReferredFacility().getFacilityId() : "");
+        txtPatientId.setText(existing.getPatientId() != null ? existing.getPatientId() : "");
+        txtRefClinicianId.setText(existing.getReferringClinicianId() != null ? existing.getReferringClinicianId() : "");
+        txtReferredClinicianId.setText(existing.getReferredClinicianId() != null ? existing.getReferredClinicianId() : "");
+        txtRefFacilityId.setText(existing.getReferringFacilityId() != null ? existing.getReferringFacilityId() : "");
+        txtReferredFacilityId.setText(existing.getReferredFacilityId() != null ? existing.getReferredFacilityId() : "");
         txtDate.setText(existing.getReferralDate() != null ? existing.getReferralDate().toString() : "");
         txtUrgency.setText(existing.getUrgencyLevel());
         txtReason.setText(existing.getReferralReason());
@@ -142,12 +142,12 @@ public class ReferralFormDialog extends JDialog {
         r.setLastUpdated(LocalDate.now());
 
         // Patient, clinicians, facilities resolved later from IDs if needed
-        r.setPatient(null);
-        r.setReferringClinician(null);
-        r.setReferredClinician(null);
-        r.setReferringFacility(null);
-        r.setReferredFacility(null);
-        r.setLinkedAppointment(null);
+        r.setPatientId(null);
+        r.setReferringClinicianId(null);
+        r.setReferredClinicianId(null);
+        r.setReferringFacilityId(null);
+        r.setReferredFacilityId(null);
+        r.setLinkedAppointmentId(null);
 
         return r;
     }

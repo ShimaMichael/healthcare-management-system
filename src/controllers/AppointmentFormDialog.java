@@ -99,12 +99,11 @@ public class AppointmentFormDialog extends JDialog {
 
     private void populateFromExisting() {
         txtAppointmentId.setText(existing.getAppointmentId());
-        txtPatientId.setText(existing.getPatient() != null ? existing.getPatient().getPatientId() : "");
-        txtClinicianId.setText(existing.getClinician() != null ? existing.getClinician().getClinicianId() : "");
-        txtFacilityId.setText(existing.getFacility() != null ? existing.getFacility().getFacilityId() : "");
-        if (existing.getStartDateTime() != null) {
-            txtDate.setText(existing.getStartDateTime().toLocalDate().toString());
-            txtTime.setText(existing.getStartDateTime().toLocalTime().toString());
+        txtPatientId.setText(existing.getPatientId() != null ? existing.getPatientId() : "");
+        txtClinicianId.setText(existing.getClinicianId() != null ? existing.getClinicianId() : "");
+        txtFacilityId.setText(existing.getFacilityId() != null ? existing.getFacilityId() : "");
+        if (existing.getAppointmentDate() != null) {
+            txtDate.setText(existing.getAppointmentDate().toString());
         }
         txtDuration.setText(String.valueOf(existing.getDurationMinutes()));
         txtType.setText(existing.getAppointmentType());
@@ -122,8 +121,6 @@ public class AppointmentFormDialog extends JDialog {
         String facilityId = txtFacilityId.getText().trim();
 
         LocalDate date = LocalDate.parse(txtDate.getText().trim());
-        LocalTime time = LocalTime.parse(txtTime.getText().trim());
-        LocalDateTime start = LocalDateTime.of(date, time);
 
         int duration = Integer.parseInt(txtDuration.getText().trim());
         String type = txtType.getText().trim();
@@ -133,7 +130,7 @@ public class AppointmentFormDialog extends JDialog {
 
         Appointment a = new Appointment();
         a.setAppointmentId(id);
-        a.setStartDateTime(start);
+        a.setAppointmentDate(date);
         a.setDurationMinutes(duration);
         a.setAppointmentType(type);
         a.setStatus(status);
@@ -144,9 +141,9 @@ public class AppointmentFormDialog extends JDialog {
 
         // For now, leave patient/clinician/facility null; the controller
         // could later resolve IDs to objects via repositories/services.
-        a.setPatient(null);
-        a.setClinician(null);
-        a.setFacility(null);
+        a.setPatientId(null);
+        a.setClinicianId(null);
+        a.setFacilityId(null);
 
         return a;
     }

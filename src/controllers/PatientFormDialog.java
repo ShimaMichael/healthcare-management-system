@@ -91,7 +91,7 @@ public class PatientFormDialog extends JDialog {
         String id = txtPatientId.getText().trim();
         String first = txtFirstName.getText().trim();
         String last = txtLastName.getText().trim();
-        int nhs = Integer.parseInt(txtNhsNumber.getText().trim());
+        String nhs = txtNhsNumber.getText().trim();
         String gender = txtGender.getText().trim();
         LocalDate dob = LocalDate.parse(txtDob.getText().trim());
         String postcode = txtPostcode.getText().trim();
@@ -99,7 +99,7 @@ public class PatientFormDialog extends JDialog {
         return new Patient(
                 id, first, last, dob,
                 "", "", // email, phone left blank here
-                id, nhs, gender, "", postcode,
+                 nhs, gender, "", postcode,
                 "", "", LocalDate.now(), ""
         );
     }
