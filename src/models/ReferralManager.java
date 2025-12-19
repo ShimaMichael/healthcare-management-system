@@ -61,18 +61,18 @@ public class ReferralManager {
         StringBuilder sb = new StringBuilder();
         sb.append("Referral ID: ").append(r.getReferralId()).append(System.lineSeparator());
         sb.append("Patient: ");
-        if (r.getPatient() != null) {
-            sb.append(r.getPatient().getFullName());
+        if (r.getPatientId() != null) {
+            sb.append(r.getPatientId()); //.getFullName());
         }
         sb.append(System.lineSeparator());
         sb.append("Referring clinician: ");
-        if (r.getReferringClinician() != null) {
-            sb.append(r.getReferringClinician().getFullName());
+        if (r.getReferringClinicianId() != null) {
+            sb.append(r.getReferringClinicianId()); //.getFullName());
         }
         sb.append(System.lineSeparator());
         sb.append("Referred clinician: ");
-        if (r.getReferredClinician() != null) {
-            sb.append(r.getReferredClinician().getFullName());
+        if (r.getReferredClinicianId() != null) {
+            sb.append(r.getReferredClinicianId()); //).getFullName());
         }
         sb.append(System.lineSeparator());
         sb.append("Reason: ").append(r.getReferralReason()).append(System.lineSeparator());
@@ -105,7 +105,8 @@ public class ReferralManager {
     }
 
     private void updatePatientRecord(Referral referral) {
-        Patient patient = referral.getPatient();
+        String patientId = referral.getPatientId();
+        Patient patient = new Patient();
         if (patient == null) return;
 
         // assuming Patient has a PatientRecord field or getter
