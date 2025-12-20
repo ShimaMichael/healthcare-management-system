@@ -23,19 +23,13 @@ public class HospitalApp {
             ArrayList<AdminStaff> admins;
             DataLoader loader = new DataLoader();
 
-            try {
-                patients        = loader.loadPatients();
-                clinicians      = loader.loadClincians();
-                //facilities      = loader.loadFacilities();
-                //appointments    = loader.loadAppointments();
-                //prescriptions   = loader.loadPrescriptions();
-                referrals       = loader.loadReferrals();
-                admins          = loader.loadAdmins();
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-
+            patients        = loader.loadPatients();
+            clinicians      = loader.loadClinicians();
+            facilities      = loader.loadFacilities();
+            appointments    = loader.loadAppointments();
+            prescriptions   = loader.loadPrescriptions();
+            referrals       = loader.loadReferrals();
+            admins          = loader.loadAdmins();
 
 
             LoginFrame login = new LoginFrame();

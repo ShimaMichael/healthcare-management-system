@@ -1,4 +1,5 @@
 package controllers;
+
 import gui.PrescriptionPanel;
 import models.Prescription;
 
@@ -25,11 +26,11 @@ public class PrescriptionController {
                 (p, col) -> {
                     switch (col) {
                         case 0: return p.getPrescriptionId();
-                        case 1: return p.getPatient() != null ? p.getPatient().getFullName() : "";
-                        case 2: return p.getPrescriber() != null ? p.getPrescriber().getFullName() : "";
+                        case 1: return p.getPatientId() != null ? p.getPatientId() : "";
+                        case 2: return p.getClinicianId() != null ? p.getClinicianId() : "";
                         case 3: return p.getPrescriptionDate();
                         case 4: return p.getPharmacyName();
-                        case 5: return p.getMedications() != null ? p.getMedications().size() : 0;
+                        case 5: return p.getMedicationName() != null ? p.getMedicationName() : 0;
                         default: return "";
                     }
                 },

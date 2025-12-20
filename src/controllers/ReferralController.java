@@ -29,9 +29,9 @@ public class ReferralController {
                 (r, col) -> {
                     switch (col) {
                         case 0: return r.getReferralId();
-                        case 1: return r.getPatient() != null ? r.getPatient().getFullName() : "";
-                        case 2: return r.getReferringClinician() != null ? r.getReferringClinician().getFullName() : "";
-                        case 3: return r.getReferredClinician() != null ? r.getReferredClinician().getFullName() : "";
+                        case 1: return r.getPatientId() != null ? r.getPatientId() : "";
+                        case 2: return r.getReferringClinicianId() != null ? r.getReferringClinicianId() : "";
+                        case 3: return r.getReferredClinicianId() != null ? r.getReferredClinicianId() : "";
                         case 4: return r.getReferralDate();
                         case 5: return r.getUrgencyLevel();
                         case 6: return r.getStatus();

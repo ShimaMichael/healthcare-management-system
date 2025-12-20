@@ -61,7 +61,6 @@ public class LoginController {
             return;
         }
 
-        // open main application
         MainFrame mainFrame = new MainFrame();
         PatientPanel patientPanel = mainFrame.getPatientPanel();
         ClinicianPanel clinicianPanel = mainFrame.getClinicianPanel();
