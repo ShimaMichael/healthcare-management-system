@@ -8,6 +8,7 @@ public class Appointment {
     private String clinicianId;
     private String facilityId;
     private LocalDate appointmentDate;
+    private String appointmentTime;
     private int durationMinutes;
     private String appointmentType;
     private String status;
@@ -23,6 +24,7 @@ public class Appointment {
                        String clinicianId,
                        String facilityId,
                        LocalDate appointmentDate,
+                       String appointmentTime,
                        int durationMinutes,
                        String appointmentType,
                        String status,
@@ -35,6 +37,7 @@ public class Appointment {
         this.clinicianId = clinicianId;
         this.facilityId = facilityId;
         this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
         this.durationMinutes = durationMinutes;
         this.appointmentType = appointmentType;
         this.status = status;
@@ -43,6 +46,9 @@ public class Appointment {
         this.createdDate = createdDate;
         this.lastModified = lastModified;
     }
+
+    public String getAppointmentTime() { return appointmentTime; }
+    public void setAppointmentTime(String appointmentTime) { this.appointmentTime = appointmentTime; }
 
     public String getAppointmentId() { return appointmentId; }
     public void setAppointmentId(String appointmentId) { this.appointmentId = appointmentId; }
