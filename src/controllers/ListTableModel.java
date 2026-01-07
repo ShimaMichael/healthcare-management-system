@@ -48,6 +48,9 @@ public class ListTableModel<T> extends AbstractTableModel {
     }
 
     public void removeRow(int rowIndex) {
+        if (rowIndex < 0 || rowIndex >= rows.size()) {
+            return;
+        }
         rows.remove(rowIndex);
         fireTableRowsDeleted(rowIndex, rowIndex);
     }

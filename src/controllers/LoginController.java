@@ -7,9 +7,8 @@ import gui.ClinicianPanel;
 import gui.AppointmentPanel;
 import gui.PrescriptionPanel;
 import gui.ReferralPanel;
-import models.Patient;
-import models.Clinician;
-import models.AdminStaff;
+import models.*;
+
 
 import javax.swing.*;
 import java.util.List;
@@ -20,16 +19,15 @@ public class LoginController {
     private final List<Patient> patients;
     private final List<Clinician> clinicians;
     private final List<AdminStaff> admins;
+    private final InAppData inAppData;
 
-    public LoginController(LoginFrame loginView,
-                           List<Patient> patients,
-                           List<Clinician> clinicians,
-                           List<AdminStaff> admins) {
-        this.loginView = loginView;
-        this.patients = patients;
-        this.clinicians = clinicians;
-        this.admins = admins;
-        addListeners();
+    public LoginController(LoginFrame loginView, InAppData inAppData) {
+            this.inAppData = inAppData;
+            this.loginView = loginView;
+            this.patients = inAppData.getPatients();
+            this.clinicians = inAppData.getClinicians();
+            this.admins = inAppData.getAdminStaff();
+            addListeners();
     }
 
     private void addListeners() {
@@ -68,7 +66,7 @@ public class LoginController {
         PrescriptionPanel prescriptionPanel = mainFrame.getPrescriptionPanel();
         ReferralPanel referralPanel = mainFrame.getReferralPanel();
 
-        PatientController pc = new PatientController(patientPanel);
+        PatientController pc = new PatientController(patientPanel, inAppData, currentUser instanceof Patient ? ((Patient) currentUser).getUserId() : null);
         ClinicianController cc = new ClinicianController(clinicianPanel);
         AppointmentController ac = new AppointmentController(appointmentPanel);
         PrescriptionController prc = new PrescriptionController(prescriptionPanel);
@@ -80,7 +78,7 @@ public class LoginController {
             prescriptionPanel.getBtnAdd().setEnabled(false);
         } else if (currentUser instanceof Clinician) {
             // clinicians can handle prescriptions and referrals, maybe not delete patients
-            patientPanel.getBtnDelete().setEnabled(false);
+            //patientPanel.getBtnDelete().setEnabled(false);
         }
 
         loginView.dispose();
