@@ -56,7 +56,7 @@ public class PatientController {
     }
 
     private void setupAppointmentsTable(PatientRecord record) {
-        String[] cols = {"Date", "Time", "Type", "Status"};
+        String[] cols = {"Date", "Time", "Type", "Status", "Clinician"};
 
         ListTableModel<Appointment> model = new ListTableModel<>(
                 cols,
@@ -67,6 +67,10 @@ public class PatientController {
                         case 1: return a.getAppointmentTime();
                         case 2: return a.getAppointmentType();
                         case 3: return a.getStatus();
+                        case 4: {
+                            Clinician c = data.getClinicianById(a.getClinicianId());
+                            return c != null ? c.getFullName() : a.getClinicianId();
+                        }
                         default: return "";
                     }
                 },
@@ -76,8 +80,9 @@ public class PatientController {
         view.getAppointmentsTable().setModel(model);
     }
 
+
     private void setupPrescriptionsTable(PatientRecord record) {
-        String[] cols = {"Date", "Medication", "Dosage", "Status"};
+        String[] cols = {"Date", "Medication", "Dosage", "Status", "Clinician"};
 
         ListTableModel<Prescription> model = new ListTableModel<>(
                 cols,
@@ -88,6 +93,10 @@ public class PatientController {
                         case 1: return p.getMedicationName();
                         case 2: return p.getDosage();
                         case 3: return p.getStatus();
+                        case 4: {
+                            Clinician c = data.getClinicianById(p.getClinicianId());
+                            return c != null ? c.getFullName() : p.getClinicianId();
+                        }
                         default: return "";
                     }
                 },
@@ -97,8 +106,9 @@ public class PatientController {
         view.getPrescriptionsTable().setModel(model);
     }
 
+
     private void setupReferralsTable(PatientRecord record) {
-        String[] cols = {"Date", "Urgency", "Reason", "Status"};
+        String[] cols = {"Date", "Urgency", "Reason", "Status", "Referred To"};
 
         ListTableModel<Referral> model = new ListTableModel<>(
                 cols,
@@ -109,6 +119,10 @@ public class PatientController {
                         case 1: return r.getUrgencyLevel();
                         case 2: return r.getReferralReason();
                         case 3: return r.getStatus();
+                        case 4: {
+                            Clinician c = data.getClinicianById(r.getReferringClinicianId());
+                            return c != null ? c.getFullName() : r.getReferringClinicianId();
+                        }
                         default: return "";
                     }
                 },

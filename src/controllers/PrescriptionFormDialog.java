@@ -26,6 +26,13 @@ public class PrescriptionFormDialog extends JDialog {
         this(null);
     }
 
+    public PrescriptionFormDialog(String prescriberId, String patientId) {
+        this(null);
+        txtPrescriberId.setText(prescriberId);
+        txtPatientId.setText(patientId != null ? patientId : "");
+        txtDate.setText(LocalDate.now().toString());
+    }
+
     public PrescriptionFormDialog(Prescription existing) {
         this.existing = existing;
         setModal(true);
@@ -111,16 +118,6 @@ public class PrescriptionFormDialog extends JDialog {
         String pharmacy = txtPharmacy.getText().trim();
         String instructions = txtInstructions.getText().trim();
         String meds = txtMedications.getText().trim();
-        // List<Medication> meds = new ArrayList<>();
-        // for (String line : txtMedications.getText().split("\\R")) {
-        //     line = line.trim();
-        //     if (line.isEmpty()) continue;
-        //     String[] parts = line.split("\\|");
-        //     String name = parts.length > 0 ? parts[0].trim() : "";
-        //     String form = parts.length > 1 ? parts[1].trim() : "";
-        //     String strength = parts.length > 2 ? parts[2].trim() : "";
-        //     meds.add(new Medication(null, name, form, strength));
-        // }
 
         Prescription p = new Prescription();
         p.setPrescriptionId(id);
@@ -131,9 +128,8 @@ public class PrescriptionFormDialog extends JDialog {
         p.setIssueDate(date);
         p.setCollectionDate(null);
 
-        // Patient/Clinician to be resolved from IDs by higher-level service if needed
-        p.setPatientId(null);
-        p.setClinicianId(null);
+        p.setPatientId(patientId.isEmpty() ? null : patientId);
+        p.setClinicianId(prescriberId.isEmpty() ? null : prescriberId);
         p.setAppointmentId(null);
 
         return p;

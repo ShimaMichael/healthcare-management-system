@@ -28,6 +28,14 @@ public class ReferralFormDialog extends JDialog {
         this(null);
     }
 
+    public ReferralFormDialog(String refClinicianId, String patientId) {
+        this(null); // call existing constructor
+        txtRefClinicianId.setText(refClinicianId);
+        txtPatientId.setText(patientId != null ? patientId : "");
+        txtDate.setText(LocalDate.now().toString());
+        txtStatus.setText("PENDING");  // sensible default
+    }
+
     public ReferralFormDialog(Referral existing) {
         this.existing = existing;
         setModal(true);
@@ -141,14 +149,14 @@ public class ReferralFormDialog extends JDialog {
         r.setCreatedDate(LocalDate.now());
         r.setLastUpdated(LocalDate.now());
 
-        // Patient, clinicians, facilities resolved later from IDs if needed
-        r.setPatientId(null);
-        r.setReferringClinicianId(null);
-        r.setReferredClinicianId(null);
-        r.setReferringFacilityId(null);
-        r.setReferredFacilityId(null);
+        r.setPatientId(patientId.isEmpty() ? null : patientId);
+        r.setReferringClinicianId(refClinicianId.isEmpty() ? null : refClinicianId);
+        r.setReferredClinicianId(referredClinicianId.isEmpty() ? null : referredClinicianId);
+        r.setReferringFacilityId(refFacilityId.isEmpty() ? null : refFacilityId);
+        r.setReferredFacilityId(referredFacilityId.isEmpty() ? null : referredFacilityId);
         r.setLinkedAppointmentId(null);
 
         return r;
     }
+
 }

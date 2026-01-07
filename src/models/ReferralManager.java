@@ -7,9 +7,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import services.PatientRecordBuilder;
+
 public class ReferralManager {
 
     private static ReferralManager instance;
+    private InAppData inAppData;
 
     private final Deque<Referral> referralQueue;
     private final String auditFilePath;
@@ -19,6 +22,10 @@ public class ReferralManager {
         this.referralQueue = new ArrayDeque<>();
         this.auditFilePath = "referral_audit.txt";
         this.emailOutboxFilePath = "referral_emails.txt";
+    }
+
+     public void init(InAppData inAppData) {
+        this.inAppData = inAppData;
     }
 
     public static synchronized ReferralManager getInstance() {
@@ -105,15 +112,26 @@ public class ReferralManager {
     }
 
     private void updatePatientRecord(Referral referral) {
-        String patientId = referral.getPatientId();
-        Patient patient = new Patient();
-        if (patient == null) return;
+        if (inAppData == null || referral == null) return;
 
-        // assuming Patient has a PatientRecord field or getter
-        // if not, adjust to however you store records
-        PatientRecord record = patient.getPatientRecord();
-        if (record != null) {
-            record.addReferral(referral);
+        String patientId = referral.getPatientId();
+        if (patientId == null) return;
+
+        // get or build the PatientRecord from your central store
+        PatientRecord record = inAppData.getRecordById(patientId);
+        if (record == null) {
+            // optional: build from base data if missing
+            record = new PatientRecordBuilder(inAppData).buildForPatient(patientId);
+            if (record != null) {
+                inAppData.addRecord(record);
+            }
         }
+        if (record != null) {
+            record.getReferrals().add(referral); // or record.addReferral(referral)
+        }
+
+        // also keep the global referrals list in sync
+        inAppData.getReferrals().add(referral);
     }
+
 }

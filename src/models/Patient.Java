@@ -50,6 +50,10 @@ public class Patient extends User {
         this.patientRecord = patientRecord;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public String getPatientId() { return patientId; }
     public void setPatientId(String patientId) { this.patientId = patientId; }
 
