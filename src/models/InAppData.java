@@ -240,7 +240,8 @@ public class InAppData {
     public PatientRecord getRecordById(String id) {
         if (records == null) return null;
         for (PatientRecord r : records) {
-            if (r.getPatient().equals(id)) return r;
+            Patient p = r.getPatient();
+            if (p != null && p.getPatientId().equals(id)) return r;
         }
         return null;
     }

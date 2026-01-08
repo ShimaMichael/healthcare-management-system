@@ -43,7 +43,7 @@ public class PatientRecordBuilder {
                     .toList()
             );
 
-            PatientRecord PR = new PatientRecord(patient.getPatientId(), appts, refs, prescs);
+            PatientRecord PR = new PatientRecord(patient, appts, refs, prescs);
             records.add(PR);
             patient.setPatientRecord(PR);
         }
@@ -73,7 +73,7 @@ public class PatientRecordBuilder {
                 .toList()
         );
 
-        PatientRecord PR = new PatientRecord(patient.getPatientId(), appts, refs, prescs);
+        PatientRecord PR = new PatientRecord(patient, appts, refs, prescs);
         patient.setPatientRecord(PR);
         return PR;
     }

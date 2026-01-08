@@ -19,6 +19,8 @@ public class ClinicianPanel extends JPanel {
     private final JButton btnDeletePrescription = new JButton("Delete");
     private final JButton btnNewReferral = new JButton("New Referral");
     private final JButton btnDeleteReferral = new JButton("Delete");
+    private final JButton btnViewPatient = new JButton("View Patient Record");
+
 
     public ClinicianPanel() {
         setLayout(new BorderLayout(10, 10));
@@ -46,8 +48,13 @@ public class ClinicianPanel extends JPanel {
     private JTabbedPane buildTabs() {
         JTabbedPane tabs = new JTabbedPane();
 
-        // Appointments: view only
-        tabs.addTab("Appointments", new JScrollPane(tblAppointments));
+        // Appointments: table + "View Patient Record" button
+        JPanel apptPanel = new JPanel(new BorderLayout());
+        apptPanel.add(new JScrollPane(tblAppointments), BorderLayout.CENTER);
+        JPanel apptBtns = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        apptBtns.add(btnViewPatient);              // <- new button
+        apptPanel.add(apptBtns, BorderLayout.SOUTH);
+        tabs.addTab("Appointments", apptPanel);
 
         // Prescriptions: table + buttons
         JPanel prescPanel = new JPanel(new BorderLayout());
@@ -70,6 +77,7 @@ public class ClinicianPanel extends JPanel {
         return tabs;
     }
 
+
     public void setClinicianInfo(Clinician c, String workplaceName) {
         lblNameValue.setText(c.getFullName());
         lblIdValue.setText(c.getClinicianId());
@@ -81,6 +89,7 @@ public class ClinicianPanel extends JPanel {
     public JTable getPrescriptionsTable()  { return tblPrescriptions; }
     public JTable getReferralsTable()      { return tblReferrals; }
 
+    public JButton getBtnViewPatient() { return btnViewPatient; }
     public JButton getBtnNewPrescription() { return btnNewPrescription; }
     public JButton getBtnDeletePrescription() { return btnDeletePrescription; }
     public JButton getBtnNewReferral()     { return btnNewReferral; }

@@ -26,7 +26,7 @@ public class AppointmentFormDialog extends JDialog {
     private Appointment existing;
 
     public AppointmentFormDialog() {
-        this(null);
+        this((Appointment) null);
     }
 
     public AppointmentFormDialog(Appointment existing) {
@@ -38,6 +38,14 @@ public class AppointmentFormDialog extends JDialog {
         buildForm();
         if (existing != null) populateFromExisting();
     }
+
+    public AppointmentFormDialog(String patientId) {
+        this((Appointment) null);
+        txtPatientId.setText(patientId);
+        txtStatus.setText("Scheduled");
+        txtDate.setText(LocalDate.now().toString());
+    }
+
 
     private void buildForm() {
         JPanel panel = new JPanel(new GridLayout(0, 2, 5, 5));
@@ -121,7 +129,7 @@ public class AppointmentFormDialog extends JDialog {
         String facilityId = txtFacilityId.getText().trim();
 
         LocalDate date = LocalDate.parse(txtDate.getText().trim());
-
+        String time = txtTime.getText().trim();
         int duration = Integer.parseInt(txtDuration.getText().trim());
         String type = txtType.getText().trim();
         String status = txtStatus.getText().trim();
@@ -131,6 +139,7 @@ public class AppointmentFormDialog extends JDialog {
         Appointment a = new Appointment();
         a.setAppointmentId(id);
         a.setAppointmentDate(date);
+        a.setAppointmentTime(time);
         a.setDurationMinutes(duration);
         a.setAppointmentType(type);
         a.setStatus(status);
@@ -139,11 +148,9 @@ public class AppointmentFormDialog extends JDialog {
         a.setCreatedDate(LocalDate.now());
         a.setLastModified(LocalDate.now());
 
-        // For now, leave patient/clinician/facility null; the controller
-        // could later resolve IDs to objects via repositories/services.
-        a.setPatientId(null);
-        a.setClinicianId(null);
-        a.setFacilityId(null);
+        a.setPatientId(patientId.isEmpty() ? null : patientId);
+        a.setClinicianId(clinicianId.isEmpty() ? null : clinicianId);
+        a.setFacilityId(facilityId.isEmpty() ? null : facilityId);
 
         return a;
     }

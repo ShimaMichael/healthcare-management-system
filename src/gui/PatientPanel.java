@@ -19,6 +19,15 @@ public class PatientPanel extends JPanel {
     private final JTable tblPrescriptions = new JTable();
     private final JTable tblReferrals = new JTable();
 
+    private final JButton btnNewAppt    = new JButton("New");
+    private final JButton btnEditAppt   = new JButton("Edit");
+    private final JButton btnCancelAppt = new JButton("Cancel");
+
+    // getters for controller
+    public JButton getBtnNewAppt()    { return btnNewAppt; }
+    public JButton getBtnEditAppt()   { return btnEditAppt; }
+    public JButton getBtnCancelAppt() { return btnCancelAppt; }
+
     public PatientPanel() {
         setLayout(new BorderLayout(10, 10));
         add(buildHeaderPanel(), BorderLayout.NORTH);
@@ -50,8 +59,22 @@ public class PatientPanel extends JPanel {
     private JTabbedPane buildTabs() {
         JTabbedPane tabs = new JTabbedPane();
 
-        tabs.addTab("Appointments", new JScrollPane(tblAppointments));
+        // Appointments tab: table + buttons for patients
+        JPanel apptPanel = new JPanel(new BorderLayout());
+        apptPanel.add(new JScrollPane(tblAppointments), BorderLayout.CENTER);
+
+        JPanel apptButtons = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        apptButtons.add(btnNewAppt);
+        apptButtons.add(btnEditAppt);
+        apptButtons.add(btnCancelAppt);
+        apptPanel.add(apptButtons, BorderLayout.SOUTH);
+
+        tabs.addTab("Appointments", apptPanel);
+
+        // Prescriptions: read‑only
         tabs.addTab("Prescriptions", new JScrollPane(tblPrescriptions));
+
+        // Referrals: read‑only
         tabs.addTab("Referrals", new JScrollPane(tblReferrals));
 
         return tabs;

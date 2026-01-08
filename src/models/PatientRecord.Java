@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PatientRecord {
-    private String patient;
+    private Patient patient;
     private List<Appointment> appointments;
     private List<Prescription> prescriptions;
     private List<Referral> referrals;
@@ -15,7 +15,7 @@ public class PatientRecord {
         this.referrals = new ArrayList<>();
     }
 
-    public PatientRecord(String patient,
+    public PatientRecord(Patient patient,
                          ArrayList<Appointment> appointments,
                          ArrayList<Referral> referrals,
                          ArrayList<Prescription> prescriptions)
@@ -27,8 +27,8 @@ public class PatientRecord {
     }
 
 
-    public String getPatient() { return patient; }
-    public void setPatient(String patient) { this.patient = patient; }
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
 
     public List<Appointment> getAppointments() { return appointments; }
     public List<Prescription> getPrescriptions() { return prescriptions; }

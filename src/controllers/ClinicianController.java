@@ -4,8 +4,8 @@ import models.*;
 
 import javax.swing.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.awt.Window;
 
 import gui.ClinicianPanel;
 
@@ -149,7 +149,35 @@ public class ClinicianController {
         view.getBtnDeletePrescription().addActionListener(e -> onDeletePrescription());
         view.getBtnNewReferral().addActionListener(e -> onNewReferral());
         view.getBtnDeleteReferral().addActionListener(e -> onDeleteReferral());
+        view.getBtnViewPatient().addActionListener(e -> onViewPatientRecord());
     }
+
+    private void onViewPatientRecord() {
+        int row = view.getAppointmentsTable().getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(view, "Select an appointment first");
+            return;
+        }
+
+        Appointment appt = apptModel.getRow(row);
+        String patientId = appt.getPatientId();
+        if (patientId == null || patientId.isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Appointment has no patient id");
+            return;
+        }
+
+        PatientRecord record = data.getRecordById(patientId);
+        if (record == null) {
+            JOptionPane.showMessageDialog(view, "No record found for patient: " + patientId);
+            return;
+        }
+
+        Window owner = SwingUtilities.getWindowAncestor(view);
+        PatientRecordDialog dlg = new PatientRecordDialog(owner);
+        dlg.showRecord(record);
+        dlg.setVisible(true);
+    }
+
 
     private void onNewPrescription() {
         // prescriber fixed to this clinician; patient typed in dialog

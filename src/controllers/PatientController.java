@@ -18,6 +18,8 @@ public class PatientController {
     private final PatientPanel view;
     private final InAppData data;
     private final String patientId;
+    private ListTableModel<Appointment> apptModel;
+
 
     public PatientController(PatientPanel view,
                                       InAppData data,
@@ -53,12 +55,20 @@ public class PatientController {
         setupAppointmentsTable(record);
         setupPrescriptionsTable(record);
         setupReferralsTable(record);
+        addAppointmentListeners();
     }
+
+    private void addAppointmentListeners() {
+        view.getBtnNewAppt().addActionListener(e -> onNewAppointment());
+        view.getBtnEditAppt().addActionListener(e -> onEditAppointment());
+        view.getBtnCancelAppt().addActionListener(e -> onCancelAppointment());
+    }
+
 
     private void setupAppointmentsTable(PatientRecord record) {
         String[] cols = {"Date", "Time", "Type", "Status", "Clinician"};
 
-        ListTableModel<Appointment> model = new ListTableModel<>(
+         apptModel = new ListTableModel<>(
                 cols,
                 new ArrayList<>(record.getAppointments()),
                 (a, col) -> {
@@ -77,8 +87,72 @@ public class PatientController {
                 a -> {} // read-only for patients
         );
 
-        view.getAppointmentsTable().setModel(model);
+        view.getAppointmentsTable().setModel(apptModel);
     }
+
+    private void onNewAppointment() {
+        AppointmentFormDialog dialog =
+                new AppointmentFormDialog(patientId); 
+        dialog.setVisible(true);
+        if (!dialog.isConfirmed()) return;
+
+        Appointment a = dialog.getAppointment();
+
+        data.getAppointments().add(a);
+
+        PatientRecord rec = data.getRecordById(patientId);
+        if (rec != null) rec.getAppointments().add(a);
+
+        apptModel.addRow(a);
+    }
+
+    private void onEditAppointment() {
+        int row = view.getAppointmentsTable().getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(view, "Select an appointment first");
+            return;
+        }
+
+        Appointment existing = apptModel.getRow(row);
+        AppointmentFormDialog dialog = new AppointmentFormDialog(existing);
+        dialog.setVisible(true);
+        if (!dialog.isConfirmed()) return;
+
+        Appointment updated = dialog.getAppointment();
+
+        // keep same id, patientId, clinicianId if you want
+        updated.setAppointmentId(existing.getAppointmentId());
+        if (updated.getPatientId() == null)
+            updated.setPatientId(existing.getPatientId());
+
+        apptModel.updateRow(row, updated);
+    }
+
+    private void onCancelAppointment() {
+        int row = view.getAppointmentsTable().getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(view,
+                    "Select an appointment first");
+            return;
+        }
+
+        int choice = JOptionPane.showConfirmDialog(
+                view,
+                "Cancel this appointment?",
+                "Confirm cancel",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (choice != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Appointment a = apptModel.getRow(row);
+
+        a.setStatus("Cancelled");
+
+        apptModel.updateRow(row, a);
+    }
+
 
 
     private void setupPrescriptionsTable(PatientRecord record) {
@@ -132,110 +206,3 @@ public class PatientController {
         view.getReferralsTable().setModel(model);
     }
 }
-
-
-// public class PatientController {
-
-//     private final PatientPanel view;
-//     private final InAppData inAppData;
-//     private final ListTableModel<Patient> tableModel;
-
-//     public PatientController(PatientPanel view, InAppData inAppData) {
-//         this.view = view;
-//         this.inAppData = inAppData;
-
-//         String[] columns = { "ID", "Name", "NHS", "Gender", "DOB", "Postcode" };
-
-//         this.tableModel = new ListTableModel<>(
-//                 columns,
-//                 inAppData.getPatients(),
-//                 (patient, col) -> {
-//                     switch (col) {
-//                         case 0: return patient.getPatientId();
-//                         case 1: return patient.getFullName();
-//                         case 2: return patient.getNhsNumber();
-//                         case 3: return patient.getGender();
-//                         case 4: return patient.getDateOfBirth();
-//                         case 5: return patient.getPostcode();
-//                         default: return "";
-//                     }
-//                 },
-//                 p -> {} // not used for now
-//         );
-
-//         view.getTable().setModel(tableModel);
-//         addListeners();
-//     }
-
-//     private void addListeners() {
-//         view.getBtnAdd().addActionListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 onAddPatient();
-//             }
-//         });
-
-//         view.getBtnEdit().addActionListener(e -> onEditPatient());
-//         view.getBtnDelete().addActionListener(e -> onDeletePatient());
-//     }
-
-//     private void onAddPatient() {
-//         PatientFormDialog dialog = new PatientFormDialog();
-//         dialog.setVisible(true);
-//         if (dialog.isConfirmed()) {
-//             Patient p = dialog.getPatient();
-//             tableModel.addRow(p);
-//             inAppData.addPatient(p);
-//         }
-//     }
-
-//     private void onEditPatient() {
-//         int row = view.getTable().getSelectedRow();
-//         if (row < 0) {
-//             JOptionPane.showMessageDialog(view, "Select a patient first");
-//             return;
-//         }
-
-//         Patient existing = tableModel.getRow(row);
-//         PatientFormDialog dialog = new PatientFormDialog(existing);
-//         dialog.setVisible(true);
-
-//         if (dialog.isConfirmed()) {
-//             Patient updated = dialog.getPatient();
-//             updated.setPatientId(existing.getPatientId());
-//             inAppData.updatePatient(updated);
-//             tableModel.updateRow(row, updated);
-//         }
-//     }
-
-
-//     private void onDeletePatient() {
-//         int viewRow = view.getTable().getSelectedRow();
-//         if (viewRow < 0) {
-//             JOptionPane.showMessageDialog(view, "Select a patient first");
-//             return;
-//         }
-
-//         int modelRow = view.getTable().convertRowIndexToModel(viewRow);
-//         if (modelRow < 0 || modelRow >= tableModel.getRowCount()) {
-//             return; // safety
-//         }
-
-//         Patient toDelete = tableModel.getRow(modelRow);
-
-//         int choice = JOptionPane.showConfirmDialog(
-//                 view,
-//                 "Delete patient " + toDelete.getFullName() + "?",
-//                 "Confirm delete",
-//                 JOptionPane.YES_NO_OPTION
-//         );
-//         if (choice != JOptionPane.YES_OPTION) {
-//             return;
-//         }
-
-//         inAppData.removePatient(toDelete.getPatientId());
-//         tableModel.removeRow(modelRow);
-//     }
-
-
-// }
